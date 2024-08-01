@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`account/graphql/user > should throw error when user does not exist 1`] = `
+[
+  {
+    "extensions": {
+      "code": "ResourceNotFound",
+      "path": [],
+    },
+    "message": "User not found",
+  },
+]
+`;

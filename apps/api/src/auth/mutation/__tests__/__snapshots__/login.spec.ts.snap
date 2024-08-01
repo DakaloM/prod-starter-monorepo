@@ -1,0 +1,5 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`auth/mutation/login > should throw error when user does not exist 1`] = `[Error: Invalid credentials]`;
+
+exports[`auth/mutation/login > should throw error when user does not have a password 1`] = `[Error: Invalid credentials]`;

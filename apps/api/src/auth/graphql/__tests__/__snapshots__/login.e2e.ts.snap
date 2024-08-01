@@ -1,0 +1,13 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`auth/graphql/login > should throw error when user does not exist 1`] = `
+[
+  {
+    "extensions": {
+      "code": "InsufficientAccountPermissions",
+      "path": [],
+    },
+    "message": "The account being accessed does not have sufficient permissions to execute this operation.",
+  },
+]
+`;

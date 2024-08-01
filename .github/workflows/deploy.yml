@@ -1,0 +1,71 @@
+# name: Deploy to AWS
+
+# on:
+#   push:
+#     branches:
+#       - main
+#       - test
+
+# env:
+#   CI: true
+#   AWS_ACCOUND_ID: '412395869197'
+#   NODE_OPTIONS: '--max-old-space-size=4096'
+#   STAGE: ${{ github.ref == 'refs/heads/main' && 'prod' ||  github.ref == 'refs/heads/test' && 'test' || 'uat'  }}
+#   REGION: 'af-south-1'
+
+# jobs:
+#   deployment:
+#     name: Deploy App
+#     runs-on: ubuntu-latest
+#     environment:
+#       name: ${{ github.ref == 'refs/heads/main' && 'prod' ||  github.ref == 'refs/heads/test' && 'test' }}
+#     permissions:
+#       id-token: write
+#       contents: read
+#     concurrency:
+#       group: ${{ github.workflow }}-${{ github.ref }}
+#       cancel-in-progress: false
+
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
+
+#       - name: Set up Node
+#         uses: actions/setup-node@v3
+#         with:
+#           cache: 'yarn'
+#           cache-dependency-path: yarn.lock
+#           node-version: '18.x'
+
+#       - name: Restore build cache
+#         id: turbo-cache
+#         uses: actions/cache@v3
+#         with:
+#           path: .turbo
+#           key: turbo-${{ github.ref_name }}-${{ github.sha }}
+#           restore-keys: |
+#             turbo-${{ github.ref_name }}-
+
+#       - name: Install dependencies
+#         run: |
+#           npm install -g yarn
+#           yarn
+#       - name: Build
+#         run: yarn run build
+#       - name: Configure AWS credentials
+#         uses: aws-actions/configure-aws-credentials@v4
+#         with:
+#           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUND_ID }}:role/github-action-technanimals-role
+#           aws-region: ${{ env.REGION }}
+
+#       - name: Deploy
+#         run: |
+#           yarn sst deploy --stage=${{ env.STAGE }}
+
+#       - name: Migrations & Seeds
+#         if: ${{ env.STAGE == 'test' }}
+#         run: |
+#           aws lambda invoke --function-name ${{ env.STAGE }}-erecruitment-migration --invocation-type Event --payload '{}' migrations.json
+#           aws lambda invoke --function-name ${{ env.STAGE }}-erecruitment-seed --invocation-type Event --payload '{}' seeds.json

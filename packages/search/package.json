@@ -1,0 +1,36 @@
+{
+  "name": "@imax/search",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "private": true,
+  "scripts": {
+    "build": "tsup",
+    "coverage": "vitest run --coverage",
+    "lint": "eslint '**/*.ts'",
+    "test": "vitest --watch",
+    "//test:ci": "vitest run --coverage"
+  },
+  "dependencies": {
+    "algoliasearch": "~4.19.1",
+    "fuse.js": "~6.6.2",
+    "meilisearch": "~0.34.1"
+  },
+  "devDependencies": {
+    "@imax/buildkit": "*",
+    "@imax/utils": "*",
+    "env-var": "~7.3.1",
+    "@imax/testkit": "*",
+    "next": "13.4.9"
+  }
+}

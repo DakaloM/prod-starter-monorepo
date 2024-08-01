@@ -1,0 +1,17 @@
+{
+  "name": "@imax/errors",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint '**/*.ts'",
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "@imax/buildkit": "*",
+    "@imax/ts": "*"
+  }
+}

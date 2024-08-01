@@ -1,0 +1,3 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`auth/mutation/createAccount > should throw error when user already exists 1`] = `[Error: User already exists]`;

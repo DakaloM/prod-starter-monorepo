@@ -1,0 +1,32 @@
+{
+  "name": "@imax/storage",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint '**/*.ts'",
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "@imax/buildkit": "*",
+    "@imax/ts": "*",
+    "@imax/utils": "*",
+    "@imax/testkit": "*"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "~3.414.0",
+    "@aws-sdk/s3-request-presigner": "~3.414.0",
+    "@aws-sdk/s3-presigned-post": "~3.414.0"
+  }
+}

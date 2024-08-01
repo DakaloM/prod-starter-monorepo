@@ -1,0 +1,307 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+scalar Date
+scalar EmailAddress
+scalar JSON
+"An attachment to an object."
+type Attachment {
+  "The size of the attachment in bytes."
+  contentLength: Int!
+  "The content type of the attachment."
+  contentType: String!
+  "The creation date of the case"
+  createdAt: Date!
+  "The description rendered to text of the attachment."
+  description: String
+  "The URL to download the attachment."
+  downloadUrl: String!
+  id: ID!
+  "The name of the attachment."
+  name: String!
+  refId: String!
+  sequence: Int!
+  "The state of the attachment."
+  state: AttachmentState!
+  "The type of the attachment"
+  type: AttachmentType!
+  "The URL to upload the attachment."
+  uploadUrl: String!
+  "Versions of the attachment."
+  versions: [AttachmentVersion!]!
+}
+"A version of an attachment."
+type AttachmentVersion {
+  "The ID of the attachment."
+  attachmentId: String!
+  "The name of the attachment."
+  attachmentName: String!
+  "The URL to download the attachment."
+  downloadUrl: String!
+  "The date and time when the version was created."
+  insertedAt: Date
+  "The version of the attachment."
+  version: String!
+  "The ID of the version."
+  versionId: String
+}
+type Mutation {
+  "Create a user"
+  createUser(input: CreateUserInput!): User!
+  "Delete all notifications of a user"
+  deleteAllNotifications(input: ReadAllNotificationsInput!): Int!
+  deleteAttachment(id: ID!): Attachment!
+  "Initiate forgot password flow"
+  forgotPassword(email: EmailAddress!): String!
+  "Authenticates a user"
+  login(email: String!, password: String!): Tokens!
+  "Mark all notifications as seen"
+  readAllNotifications(input: ReadAllNotificationsInput!): [Int!]!
+  "Complete forgot password flow"
+  recoverPassword(code: String!, email: EmailAddress!, password: String!): Tokens!
+  "Updates an attachment."
+  updateAttachment(input: UpdateAttachmentInput!): Attachment!
+  "update notification status"
+  updateNotificationStatus(input: UpdateNotificationStatusInput!): Notification!
+  "Update user"
+  updateUser(input: UpdateUserInput!): User!
+  "Uploads an attachment."
+  uploadAttachment(input: UploadAttachmentInput!): Attachment!
+}
+"A notification is a communication to notify any user about any updates in the system"
+type Notification {
+  "Notification category"
+  category: NotificationCategory!
+  "Creation date and time for each notification"
+  createdAt: Date!
+  id: ID!
+  message: String!
+  refId: String!
+  "Notification status"
+  status: NotificationStatus!
+  title: String!
+  userId: String!
+}
+type Query {
+  attachment(id: ID!): Attachment!
+  "A user"
+  me: User!
+  "A list of user notifications"
+  notifications(input: NotificationFilter): [Notification!]!
+  "A user"
+  user(id: ID!): User!
+  userAttachments: [Attachment!]!
+  "List of users"
+  users(filter: UsersFilter, limit: Int = 20, page: Int = 1): UsersPayload!
+}
+type Tokens {
+  accessToken: String!
+  expiresAt: String!
+  refreshToken: String!
+}
+"A user is an human user or bot that can interact with the system."
+type User {
+  applicantId: String
+  birthDate: Date
+  email: EmailAddress!
+  gender: String
+  id: ID!
+  idNumber: String!
+  middleName: String
+  name: String!
+  race: String
+  "The role of the user."
+  role: UserRole!
+  sequence: Int!
+  status: String!
+  surname: String!
+  title: String
+}
+type UsersPayload {
+  "Whether there are more users"
+  hasNext: Boolean!
+  "List of entity"
+  items: [User!]!
+  "Total number of objects"
+  total: Int!
+}
+interface HasAttachments {
+  "The list of the attachments of the object."
+  attachments: [Attachment!]!
+}
+interface HasUser {
+  "User object"
+  user: User!
+}
+"Attachment state"
+enum AttachmentState {
+  COMPLETED
+  IN_PROGRESS
+}
+"Type of attachment"
+enum AttachmentType {
+  CertificateOrDiploma
+  CoverLetter
+  CriminalRecordDocument
+  NationalIdOrPassport
+  Offer
+  OfferResponse
+  Other
+  ProofOfResidence
+  Resume
+}
+"Gender"
+enum Gender {
+  Female
+  Male
+  NonBinary
+}
+"Notification category"
+enum NotificationCategory {
+  Advert
+  Application
+  Document
+  General
+  Interview
+  Requisition
+  UserAccount
+}
+"Notification status"
+enum NotificationStatus {
+  New
+  Seen
+}
+"Race"
+enum Race {
+  African
+  Coloured
+  Indian
+  Other
+  White
+}
+enum RoleFilter {
+  Admin
+  Applicant
+  Recruiter
+  SecretaryGeneral
+  SuperAdmin
+}
+"Title"
+enum Title {
+  Advocate
+  Dr
+  Miss
+  Mr
+  Mrs
+  Ms
+  Other
+  Prof
+  Rev
+}
+"TypeIdentifier"
+enum TypeIdentifier {
+  Address
+  Advert
+  Answer
+  Applicant
+  Application
+  Attachment
+  Contact
+  Document
+  Education
+  Experience
+  Interview
+  InterviewPackage
+  Manager
+  Notification
+  Offer
+  Position
+  Question
+  Requisition
+  Score
+  Shortlist
+  User
+}
+"User role"
+enum UserRole {
+  Admin
+  Applicant
+  Recruiter
+  SecretaryGeneral
+  SuperAdmin
+}
+"User status"
+enum UserStatus {
+  Active
+  Deleted
+  Inactive
+  NotConfirmed
+  Suspended
+}
+input CreateUserInput {
+  birthDate: Date!
+  email: String!
+  gender: Gender!
+  idNumber: String!
+  middleName: String
+  name: String!
+  race: Race!
+  role: UserRole!
+  status: UserStatus
+  surname: String!
+  title: Title!
+}
+input NotificationFilter {
+  category: String
+  limit: Int = 20
+  message: String
+  page: Int = 1
+}
+input ReadAllNotificationsInput {
+  ids: [String!]!
+}
+"Input type for uploading an attachment."
+input UpdateAttachmentInput {
+  description: String
+  id: String!
+  type: AttachmentType
+}
+input UpdateNotificationStatusInput {
+  id: String!
+  status: String
+}
+input UpdateUserInput {
+  birthDate: Date
+  email: String
+  gender: Gender
+  id: String!
+  idNumber: String
+  middleName: String
+  name: String
+  race: Race
+  role: UserRole
+  status: UserStatus
+  surname: String
+  title: Title
+}
+"Input type for uploading an attachment."
+input UploadAttachmentInput {
+  contentLength: Int!
+  contentType: String!
+  description: String
+  name: String!
+  refId: String!
+  refTypeIdentifier: String!
+  type: AttachmentType!
+}
+input UsersFilter {
+  name: String
+  notRole: RoleFilter
+  role: RoleFilter
+}
+"Exposes a URL that specifies the behavior of this scalar."
+directive @specifiedBy(
+    "The URL that specifies the behavior of this scalar."
+    url: String!
+  ) on SCALAR

@@ -1,0 +1,32 @@
+
+
+fragment Notification on Notification {
+    id
+    userId
+    refId
+    category
+    title
+    message
+    status
+    createdAt
+}
+
+query Notifications($input: NotificationFilter) {
+  notifications(input: $input) {
+    ...Notification
+  }
+}
+
+mutation UpdateNotificationStatus($input: UpdateNotificationStatusInput!) {
+  updateNotificationStatus(input: $input) {
+    ...Notification
+  }
+}
+
+mutation ReadAllNotifications($input: ReadAllNotificationsInput!) {
+  readAllNotifications(input: $input)
+}
+
+mutation DeleteAllNotifications($input: ReadAllNotificationsInput!) {
+  deleteAllNotifications(input: $input)
+}

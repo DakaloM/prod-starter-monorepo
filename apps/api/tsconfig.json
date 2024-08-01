@@ -1,0 +1,15 @@
+{
+  "extends": "@imax/ts/base.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": ".",
+    "declaration": false,
+    "declarationMap": false,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "~/*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist", "build"]
+}

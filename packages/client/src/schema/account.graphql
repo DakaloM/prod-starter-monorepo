@@ -1,0 +1,24 @@
+fragment Tokens on Tokens {
+  accessToken
+  refreshToken
+  expiresAt
+}
+
+mutation Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    ...Tokens
+  }
+}
+
+
+mutation ForgotPassword($email: EmailAddress!) {
+  forgotPassword(email: $email)
+}
+
+mutation RecoverPassword($email: EmailAddress!, $password: String!, $code: String!) {
+  recoverPassword(email: $email, password: $password, code: $code) {
+    accessToken
+    refreshToken
+    expiresAt
+  }
+}

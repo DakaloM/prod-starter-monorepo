@@ -1,0 +1,36 @@
+{
+  "name": "@imax/serverlesskit",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint '**/*.ts'",
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "~8.10.124",
+    "@imax/buildkit": "*",
+    "@imax/ts": "*",
+    "@imax/testkit": "*"
+  },
+  "dependencies": {
+    "@imax/errors": "*",
+    "@imax/cache": "*",
+    "@middy/core": "~4.4.3",
+    "@middy/http-cors": "~4.4.3",
+    "@middy/http-json-body-parser": "~4.4.3",
+    "@middy/http-error-handler": "~4.4.3",
+    "aws-lambda": "~1.0.7",
+    "zod": "~3.22.4"
+  }
+}

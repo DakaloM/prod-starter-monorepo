@@ -1,0 +1,23 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`auth/graphql/createAccount > should throw error when client is not authorized 1`] = `
+[
+  {
+    "extensions": {
+      "code": "InsufficientAccountPermissions",
+    },
+    "message": "The account being accessed does not have sufficient permissions to execute this operation.",
+  },
+]
+`;
+
+exports[`auth/graphql/createAccount > should throw error when user already exist 1`] = `
+[
+  {
+    "extensions": {
+      "code": "Conflict",
+    },
+    "message": "User already exists",
+  },
+]
+`;

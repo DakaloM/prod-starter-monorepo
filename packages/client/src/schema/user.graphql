@@ -1,0 +1,93 @@
+fragment User on User {
+  id
+  status
+  email
+  title
+  birthDate
+  name
+  surname
+  middleName
+  gender
+  race
+  idNumber
+  role
+  sequence
+}
+fragment FullUser on User {
+  id
+  name
+  middleName
+  surname
+  email
+  title
+  idNumber
+  birthDate
+  role
+  status
+  sequence
+  race
+  applicantId
+  gender
+}
+
+fragment FullUserApplicant on User {
+  id
+  name
+  middleName
+  surname
+  email
+  title
+  idNumber
+  birthDate
+  role
+  status
+  sequence
+  race
+  applicantId
+  gender
+ 
+}
+
+fragment UsersPayload on UsersPayload {
+  items {
+    ...User
+  }
+  total
+  hasNext
+}
+
+query Profile {
+  me {
+    ...User
+  }
+}
+
+query Users($filter: UsersFilter, $page: Int, $limit: Int) {
+  users(filter: $filter, page: $page, limit: $limit) {
+    ...UsersPayload
+  }
+}
+
+query User($id: ID!) {
+  user(id: $id) {
+    ...User
+  }
+}
+
+mutation CreateUser($input: CreateUserInput!) {
+  createUser(input: $input) {
+    ...User
+  }
+}
+
+mutation UpdateUser($input: UpdateUserInput!) {
+  updateUser(input: $input) {
+    ...User
+  }
+}
+
+# mutation UserRegister($input: UserRegisterInput!) {
+#   userRegister(input: $input) {
+#     id
+#   }
+# }

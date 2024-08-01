@@ -1,0 +1,15 @@
+{
+  "extends": "@imax/ts/nextjs.json",
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "downlevelIteration": true,
+    "paths": {
+      "~/client/*": ["./client/*"],
+      "~/modules/*": ["./modules/*"],
+      "~/assets/*": ["./assets/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/dashboard/candidates"],
+  "exclude": ["node_modules"]
+}

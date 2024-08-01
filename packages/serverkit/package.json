@@ -1,0 +1,30 @@
+{
+  "name": "@imax/serverkit",
+  "version": "0.0.0",
+  "private": true,
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint '**/*.ts'",
+    "build": "tsup",
+    "//test:once": "vitest run",
+    "//test": "vitest"
+  },
+  "devDependencies": {
+    "@types/dotenv": "~8.2.0",
+    "@imax/buildkit": "*",
+    "@imax/errors": "*",
+    "@imax/ts": "*",
+    "@imax/testkit": "*"
+  },
+  "dependencies": {
+    "@imax/logger": "*",
+    "dotenv": "~16.3.1",
+    "env-var": "~7.3.1",
+    "pino": "~8.11.0",
+    "pino-pretty": "~9.4.0",
+    "zod": "~3.22.4"
+  }
+}

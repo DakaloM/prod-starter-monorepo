@@ -1,0 +1,51 @@
+fragment UploadAttachment on Attachment {
+  id
+  name
+  uploadUrl
+  contentType
+  contentLength
+}
+
+fragment Attachment on Attachment {
+  id
+  name
+  type
+  refId
+  state
+  description
+  createdAt
+  contentType
+  sequence
+  downloadUrl
+}
+
+fragment FullAttachment on Attachment {
+  id
+  name
+  downloadUrl
+  description
+  type
+  state
+  createdAt
+  contentType
+  sequence
+}
+
+mutation UploadAttachment($input: UploadAttachmentInput!) {
+  uploadAttachment(input: $input) {
+    ...UploadAttachment
+  }
+}
+
+mutation UpdateAttachment($input: UpdateAttachmentInput!) {
+  updateAttachment(input: $input) {
+    ...FullAttachment
+  }
+}
+
+
+mutation DeleteAttachment($id: ID!) {
+  deleteAttachment(id: $id) {
+    id
+  }
+}

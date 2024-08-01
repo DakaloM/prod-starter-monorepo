@@ -1,0 +1,1 @@
+module.exports = require('@imax/ui/postcss.config.cjs');
